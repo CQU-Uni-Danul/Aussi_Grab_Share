@@ -449,7 +449,7 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 			}
 			else if(!isPoster && !flag){
 				claimButton = `<h3 backgroundColor = 'green'>Food Item Already Claimed`
-			}else if(flag && isClaimed && !collectedStatus === "pending"){
+			}else if(flag && isClaimed && collectedStatus === "pending"){
 				claimButton = `<a href="#" class="ui-btn ui-mini ui-btn-inline collect-button" data-id="${item._id}">Collect</a>`;
 			}
 			else if(flag && isClaimed && collectedStatus === "collected"){
@@ -649,6 +649,7 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 			.then(res => res.json())
 			.then(data => {
 			  Swal.fire("Success", "Food item marked as collected.", "success");
+			  loadAllFoodItems(true); 
 			})
 			.catch(err => {
 			  console.error("collect claim error:", err);
