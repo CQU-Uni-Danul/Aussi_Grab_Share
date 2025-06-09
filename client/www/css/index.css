@@ -399,4 +399,62 @@ input::placeholder {
   color: #555;
 }
 
+/* Claim Button */
+.claim-button {
+  background-color: #4CAF50; /* Green for action */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.claim-button:hover {
+  background-color: #388e3c;
+}
+
+/* Collect Button */
+.collect-button {
+  background-color: #007BFF; /* Blue for confirmation */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.collect-button:hover {
+  background-color: #0056b3;
+}
+
+/* Cancel Claim Button */
+.cancel-claim-btn {
+  background-color: #ff4d4d; /* Red for caution */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cancel-claim-btn:hover {
+  background-color: #e60000;
+}
+
+
 

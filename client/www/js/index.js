@@ -1,6 +1,6 @@
 //server base domain url 
-const domainUrl = 'http://localhost:5000';  // if local test, pls use this 
-//const domainUrl = 'https://aussi-grab-share.onrender.com'; //render url
+// const domainUrl = 'http://localhost:5000';  // if local test, pls use this 
+const domainUrl = 'https://aussi-grab-share.onrender.com'; //render url
 const emailRegex = /^[^\s@]+@[^\s@]+(\.[^\s@]{2,})+$/;
 const phoneRegex = /^04\d{8}$/; //phoneNumber format
 const postcodeRegex = /^\d{4}$/; // postcode format
@@ -368,6 +368,7 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 			
 			if(targetTab === "ClaimedFood"){
 				$("#ClaimedFood").show();
+				loadClaimedItems(curUser.id);
 			}
 			else{
 				loadAllFoodItems(flag);	
@@ -440,6 +441,7 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 			
 			const isPoster = item.postedBy.id === curUser.id;
 			const isClaimed = item.claimed;
+			const collectedStatus = item.collectStatus;
 
 			let claimButton = "";
 			if (!isPoster && !isClaimed && !flag) {
@@ -447,9 +449,13 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 			}
 			else if(!isPoster && !flag){
 				claimButton = `<h3 backgroundColor = 'green'>Food Item Already Claimed`
-			}else if(flag && isClaimed){
-				claimButton = `<a href="#" class="ui-btn ui-mini ui-btn-inline claim-button" data-id="${item._id}">Collect</a>`;
-			
+			}else if(flag && isClaimed && !collectedStatus === "pending"){
+				claimButton = `<a href="#" class="ui-btn ui-mini ui-btn-inline collect-button" data-id="${item._id}">Collect</a>`;
+			}
+			else if(flag && isClaimed && collectedStatus === "collected"){
+				claimButton = `<p class="text-green-700 text-base font-semibold p-2 bg-green-100 rounded-md shadow-sm">
+                        This item has been collected
+                    </p>`;
 			}
 			
 			const foodItemHTML = `
@@ -486,6 +492,72 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 		  `;
 		});
 	}
+	
+	function loadClaimedItems(userId) {
+	  const container = document.getElementById("claim-items-container");
+	  container.innerHTML = "";
+
+	  fetch(`${domainUrl}/api/claims/claimed-by-id`, {
+		method: "GET",
+		headers: {
+		  "Authorization": `Bearer ${localStorage.getItem("token")}`
+		}
+	  })
+		.then(response => response.json())
+		.then(data => {
+		  if (!data || data.length === 0) {
+			container.innerHTML = `
+			  <div class="empty-state">
+				<div class="empty-icon">✅</div>
+				<h3>No Claims Yet</h3>
+				<p>Items you’ve claimed will appear here.</p>
+			  </div>
+			`;
+			return;
+		  }
+
+		  data.forEach(item => {
+			const posted = formatDate(item.postedAt);
+			const expires = formatDate(item.expiryDate);
+
+			const imageHTML = item.imageUrl
+			  ? `<img src="${domainUrl}${item.imageUrl}" alt="Food" class="food-image">`
+			  : `<div class="food-image">🍱</div>`;
+
+			const foodItemHTML = `
+			  <div class="food-item claimed">
+				<div class="food-image-container">${imageHTML}</div>
+				<div class="food-details">
+				  <div class="food-title">${item.name}</div>
+				  <div class="food-description">${item.description || "No description"}</div>
+				  <div class="food-meta">
+					<span>Location: ${item.location}</span><br>
+					<span>Posted: ${posted}</span><br>
+					<span>Expires: ${expires}</span>
+				  </div>
+				  <div class="food-actions">
+					${
+					  item.claimedBy?.id === curUser.id && !item.collectStatus === "pending"
+						? `<button class="cancel-claim-btn" data-id="${item._id}">Cancel Claim</button>`
+						: `
+                    <p class="text-green-700 text-base font-semibold p-2 bg-green-100 rounded-md shadow-sm">
+                        This item has been collected
+                    </p>
+                  `
+					}
+				  </div>
+				</div>
+			  </div>
+			`;
+			container.insertAdjacentHTML("beforeend", foodItemHTML);
+		  });
+		})
+		.catch(error => {
+		  console.error("Error loading claimed items:", error);
+		});
+	}
+		
+
 	
 	$("#post-button").on("click", function (e) {
 	  e.preventDefault();
@@ -563,5 +635,64 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 		Swal.fire("Error", "Could not claim item", "error");
 	  });
 	});
+	
+	$(document).on("click", ".collect-button", function (e) {
+		e.preventDefault();
+		const foodItemId = $(this).data("id");
+		
+		 fetch(`${domainUrl}/api/claims/status/${foodItemId}`, {
+			method: "PATCH",
+			headers: {
+			  "Authorization": `Bearer ${localStorage.getItem("token")}`
+			}
+		  })
+			.then(res => res.json())
+			.then(data => {
+			  Swal.fire("Success", "Food item marked as collected.", "success");
+			})
+			.catch(err => {
+			  console.error("collect claim error:", err);
+			  Swal.fire("Error", "Failed to collect claim.", "error");
+			});
+
+	});
+	
+	$(document).on("click", ".cancel-claim-btn", function (e) {
+		e.preventDefault();
+		const foodItemId = this.getAttribute("data-id");
+
+		Swal.fire({
+		  title: "Cancel Claim?",
+		  text: "Are you sure you want to cancel your claim?",
+		  icon: "warning",
+		  showCancelButton: true,
+		  confirmButtonText: "Yes, Cancel",
+		  cancelButtonText: "No"
+		}).then((result) => {
+		  if (result.isConfirmed) {
+			cancelClaim(foodItemId);
+		  }
+		});
+	});
+	
+	function cancelClaim(itemId) {
+	  fetch(`${domainUrl}/api/claims/cancel-claim/${itemId}`, {
+		method: "DELETE",
+		headers: {
+		  "Authorization": `Bearer ${localStorage.getItem("token")}`
+		}
+	  })
+		.then(res => res.json())
+		.then(data => {
+		  Swal.fire("Cancelled", "Claim has been removed.", "success");
+		  // Reload list
+		  $("#food-navbar a.ui-btn-active").trigger("click");
+		})
+		.catch(err => {
+		  console.error("Cancel claim error:", err);
+		  Swal.fire("Error", "Failed to cancel claim.", "error");
+		});
+	}
+
 	
 });

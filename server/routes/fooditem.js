@@ -25,12 +25,8 @@ const upload = multer({ storage: storage });
 // Get all food items (optionally filter by location, unclaimed only)
 router.get('/all', auth, async (req, res) => {
   try {
-    const { location, claimed } = req.query;
-    let filter = {};
-    if (location) filter.location = location;
-    if (claimed !== undefined) filter.claimed = claimed === 'true';
 
-    const items = await FoodItem.find().sort({ postedAt: -1 });
+    const items = await FoodItem.find({collectStatus: "pending"}).sort({ postedAt: -1 });
     res.json(items);
 
   } catch (error) {

@@ -6,6 +6,7 @@ const FoodItemSchema = new mongoose.Schema({
   description: String,
   imageUrl: String,
   location: { type: String, required: true },
+  collectStatus: { type: String, default: "pending" },
   postedBy: {
     id: { type: mongoose.Schema.Types.ObjectId, required: true },
     role: { type: String, enum: ['user', 'business'], required: true }
