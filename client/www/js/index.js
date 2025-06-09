@@ -1,6 +1,6 @@
 //server base domain url 
-// const domainUrl = 'http://localhost:5000';  // if local test, pls use this 
-const domainUrl = 'https://aussi-grab-share.onrender.com'; //render url
+const domainUrl = 'http://localhost:5000';  // if local test, pls use this 
+//const domainUrl = 'https://aussi-grab-share.onrender.com'; //render url
 const emailRegex = /^[^\s@]+@[^\s@]+(\.[^\s@]{2,})+$/;
 const phoneRegex = /^04\d{8}$/; //phoneNumber format
 const postcodeRegex = /^\d{4}$/; // postcode format
