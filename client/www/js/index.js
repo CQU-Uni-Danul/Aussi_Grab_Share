@@ -537,7 +537,7 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 				  </div>
 				  <div class="food-actions">
 					${
-					  item.claimedBy?.id === curUser.id && !item.collectStatus === "pending"
+					  item.claimedBy?.id === curUser.id && item.collectStatus === "pending"
 						? `<button class="cancel-claim-btn" data-id="${item._id}">Cancel Claim</button>`
 						: `
                     <p class="text-green-700 text-base font-semibold p-2 bg-green-100 rounded-md shadow-sm">
