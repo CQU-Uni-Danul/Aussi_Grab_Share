@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="
+  default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval';
+  script-src 'self' 'unsafe-inline' 'unsafe-eval';
+  style-src 'self' 'unsafe-inline';
+  connect-src 'self' http://localhost:5000;
+  img-src 'self' data: http://localhost:5000 https://aussiegrubshare.com;
+">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+
+    <link rel="stylesheet" href="./js/jquery.mobile-1.4.5.css" />
+    <link rel="stylesheet" href="./js/sweetalert2.css" />
+    <link rel="stylesheet" href="themes/myTheme.css" />
+    <link rel="stylesheet" href="./css/index.css">
+	<link rel="icon" href="data:,">
+
+    <script src="./js/jquery-2.0.0.js"></script>
+    <script src="./js/jquery.mobile-1.4.5.js"></script>
+    <script src="./js/jquery.validate.min.js"></script>
+    <script src="./js/jqueryValidation.js"></script>
+    <script src="./js/sweetalert2.all.js"></script>
+    <script src="./js/index.js"></script>
+
+    <title>Aussie Grub Share</title>
+</head>
+
+<body>
+
+    <div data-role="page" id="loginPage" data-theme="d" class="login-page-custom-bg">
+        <div class="login-top-header">
+            <img src="img/leaf.png" alt="Leaf Icon" class="header-leaf-icon" /> <span class="header-app-name">Aussie Grub Share</span>
+        </div>
+
+        <div role="main" class="ui-content wrap login-content">
+            <form id="loginForm" method="get" action="" class="login-form-card">
+                <div class="banner-inside-card">300 x 100</div>
+                <h2 class="welcome-back-title">Welcome Back!</h2>
+                <p class="login-tagline">Login to continue sharing and discovering grub.</p>
+
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" name="email" id="email" placeholder="you@example.com" required />
+
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password" placeholder="********" required />
+				
+				<p class="form-label" style="text-align: center;">Login as:</p>
+                <div class="login-as-container">
+                    <a href="#" id="loginAsUserBtn" class="login-as-button" data-account-type="user">User</a>
+                    <a href="#" id="loginAsBusinessBtn" class="login-as-button" data-account-type="business">Business</a>
+                </div>
+				<input type="hidden" name="accountType" id="selectedAccountType" value="user">
+
+                <a href="#" id="loginButton" class="ui-btn ui-shadow ui-corner-all ui-btn-d login-primary-button"><i class="fas fa-arrow-right"></i> Login</a>
+
+                <p class="no-account-text">Don't have an account?</p>
+
+                <a href="#userSignupPage" class="ui-btn ui-shadow ui-corner-all ui-btn-d secondary-signup-button">
+                    <img src="img/user.png" alt="User Icon" class="user-Icon" /> Sign Up</a>
+                <a href="#businessSignupPage" class="ui-shadow ui-corner-all ui-btn ui-btn-d secondary-signup-button">
+                    <img src="img/business.png" alt="Business Icon" class="business-Icon" />Business Sign Up</a>
+            </form>
+        </div>
+
+        <div data-role="footer" data-theme="d" data-position="fixed" class="footer">
+            <h1>&copy; Aussie Grub Share 2025</h1>
+        </div>
+    </div>
+
+    <div data-role="page" id="userSignupPage" data-theme="d">
+        <div data-role="header" data-theme="d" data-position="fixed">
+            <a href="#loginPage" class="ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all back-button-icon">Go Back</a>
+            <h1>User Registration</h1>
+        </div>
+
+        <div role="main" class="ui-content wrap">
+            <form id="userForm" method="post" action="" class="signup-form-card">
+                <h3 class="form-section-title">Account Details</h3>
+                <label for="userEmail" class="form-label">Email Address</label>
+                <input type="email" name="email" id="userEmail" placeholder="Enter your Email" required />
+
+                <label for="userPassword" class="form-label">Password</label>
+                <input type="password" name="password" id="userPassword" placeholder="Enter your Password" required />
+
+                <h3 class="form-section-title">Personal Information</h3>
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" name="firstName" id="firstName" placeholder="First Name" required />
+
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" name="lastName" id="lastName" placeholder="Last Name" required />
+
+                <h3 class="form-section-title">Contact & Location</h3>
+                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <input type="text" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" required />
+
+                <label for="address" class="form-label">Address Details</label>
+                <input type="text" name="address" id="address" placeholder="Address Details" required />
+
+                <label for="postcode" class="form-label">Postcode</label>
+                <input type="text" name="postcode" id="postcode" placeholder="Postcode" required />
+	
+                <label for="state" class="form-label">Please select your state:</label>
+                <select name="state" id="state">
+                    <option value="">Select state</option>
+                    <option value="ACT">ACT</option>
+                    <option value="VIC">VIC</option>
+                    <option value="NSW">NSW</option>
+                    <option value="QLD">QLD</option>
+                    <option value="SA">SA</option>
+                    <option value="TAS">TAS</option>
+                </select>
+
+                <a id="userSubmitButton" class="ui-btn ui-shadow ui-corner-all ui-btn-d login-primary-button">Confirm</a>
+                <button id="clearuserButton" type="reset" class="ui-btn ui-shadow ui-corner-all secondary-signup-button">Clear</button>
+            </form>
+        </div>
+
+        <div data-role="footer" data-theme="d" data-position="fixed" class="footer">
+            <h1>&copy; Aussie Grub Share 2025</h1>
+        </div>
+    </div>
+
+    <div data-role="page" id="businessSignupPage" data-theme="d">
+        <div data-role="header" data-theme="d" data-position="fixed">
+            <a href="#loginPage" class="ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all back-button-icon">Go Back</a>
+            <h1>Business Registration</h1>
+        </div>
+
+        <div role="main" class="ui-content wrap">
+            <form id="businessForm" method="post" action="" class="signup-form-card">
+                <h3 class="form-section-title">Business Details</h3>
+                <label for="businessName" class="form-label">Business Name</label>
+                <input type="text" name="businessName" id="businessName" placeholder="Business Name" required />
+
+                <label for="businessEmail" class="form-label">Email Address</label>
+                <input type="email" name="email" id="businessEmail" placeholder="Email Address" required />
+
+                <label for="businessPassword" class="form-label">Password</label>
+                <input type="password" name="password" id="businessPassword" placeholder="Password" required />
+
+                <h3 class="form-section-title">Owner Information</h3>
+                <label for="ownerFirstName" class="form-label">Owner First Name</label>
+                <input type="text" name="ownerFirstName" id="ownerFirstName" placeholder="Owner First Name" required />
+
+                <label for="ownerLastName" class="form-label">Owner Last Name</label>
+                <input type="text" name="ownerLastName" id="ownerLastName" placeholder="Owner Last Name" required />
+
+                <h3 class="form-section-title">Location & Contact</h3>
+                <label for="businessType" class="form-label">Business Type:</label>
+                <select name="businessType" id="businessType">
+                    <option value="">Select business type</option>
+                    <option value="Bakery">Bakery</option>
+                    <option value="Restaurant">Restaurant</option>
+                    <option value="Cafe">Cafe</option>
+                    <option value="Grocery">Grocery</option>
+                </select>
+
+                <label for="businessState" class="form-label">Select your state:</label>
+                <select name="state" id="businessState">
+                    <option value="">Select state</option>
+                    <option value="ACT">ACT</option>
+                    <option value="VIC">VIC</option>
+                    <option value="NSW">NSW</option>
+                    <option value="QLD">QLD</option>
+                    <option value="SA">SA</option>
+                    <option value="TAS">TAS</option>
+                </select>
+
+                <label for="businessAddress" class="form-label">Business Address</label>
+                <input type="text" name="address" id="businessAddress" placeholder="Business Address" required />
+
+                <label for="businessPostcode" class="form-label">Postcode</label>
+                <input type="text" name="postcode" id="businessPostcode" placeholder="Postcode" required />
+
+                <label for="businessPhoneNumber" class="form-label">Phone Number</label>
+                <input type="text" name="phoneNumber" id="businessPhoneNumber" placeholder="Phone Number" required />
+
+                <a id="businessSubmitButton" class="ui-btn ui-shadow ui-corner-all ui-btn-d login-primary-button">Register</a>
+                <button type="reset" class="ui-btn ui-shadow ui-corner-all secondary-signup-button">Clear</button>
+            </form>
+        </div>
+
+        <div data-role="footer" data-theme="d" data-position="fixed" class="footer">
+            <h1>&copy; Aussie Grub Share 2025</h1>
+        </div>
+    </div>
+	
+	<div data-role="page" id="FoodItemsPage" data-theme="d">
+	  <div data-role="header" data-position="fixed" data-theme="d">
+		<a href="#" id="LogOutButton" class="ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all back-button-icon">Go Back</a>
+		<h1>Food Items</h1>
+	  </div>
+
+	  <div data-role="navbar" id="food-navbar">
+		<ul>
+		    <li><a href="#" class="ui-btn-active" data-tab="PostItems">Post Items</a></li>
+			<li><a href="#" data-tab="AllFoodIteam">All Posted Food Items</a></li>
+			<li><a href="#" data-tab="UserPostedFood">User Posts</a></li>
+		</ul>
+	  </div>
+	
+		<!-- Post food iteam Section -->
+	 <form id="food-form" enctype="multipart/form-data">
+	  <div role="main" class="ui-content wrap" id="PostItems">
+		  <div id="add-form" class="signup-form-card">
+
+			<h3 class="form-section-title">Share Food Item</h3>
+
+			<label for="food-title" class="form-label">Food Item Name:</label>
+			<input type="text" id="food-title" name="name" placeholder="What food are you sharing?">
+
+			<label for="food-description" class="form-label">Description:</label>
+			<textarea id="food-description" name="description" placeholder="Add details about the food item"></textarea>
+
+			<label for="food-location" class="form-label">Location:</label>
+			<input type="text" id="food-location" name="location" placeholder="Enter location">
+
+			<label for="food-expiry" class="form-label">Expiry Date:</label>
+			<input type="date" id="food-expiry" name="expiryDate">
+
+			<label for="food-image" class="form-label">Upload Image:</label>
+			<input 
+			  type="file" 
+			  id="food-image" 
+			  name="image" 
+			  accept="image/*" 
+			  capture="environment"
+			>
+
+			<a id="post-button" class="ui-btn ui-shadow ui-corner-all ui-btn-d login-primary-button">Share Food Item</a>
+
+		  </div>
+		</div>
+
+	</form>
+
+	  
+	  <!-- Showing all food iteam Section -->
+	  <div role="main" class="ui-content wrap" id="AllFoodIteam">
+		<div id="all-items-container">
+		  <div class="empty-state" id="all-empty-state">
+			<div class="empty-icon">🏪</div>
+			<h3>No Posts Yet</h3>
+			<p>Be the first one to appear here when they share food items.</p>
+		  </div>
+		</div>
+	  </div>
+	  <!-- Showing all food iteam Section Ends -->
+	  
+	  <!-- Showing user posted food iteam Section Ends -->
+	  
+	  <div role="main" class="ui-content wrap" id="UserPostedFood">
+		<div id="user-items-container">
+		  <div class="empty-state" id="user-empty-state">
+			<div class="empty-icon">👤</div>
+			<h3>No User Posts Yet</h3>
+			<p>Individual users will appear here when they share food items.</p>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <!-- Showing user posted food iteam Section Ends -->
+
+	  <div data-role="footer" data-position="fixed" class="footer">
+		<h1>&copy; Aussie Grub Share 2025</h1>
+	  </div>
+	</div>
+
+</body>
+</html>

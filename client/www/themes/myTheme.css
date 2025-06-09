@@ -1,0 +1,162 @@
+/*
+ * jQuery Mobile Theme: Aussie Grub Share - Custom design based on lay.png
+ * Based on jQuery Mobile 1.4.5 default theme structure.
+ */
+
+/* Global Colors for theme 'd' */
+
+/* Headers/Footers (ui-bar-d) - Transparent/Very Light */
+.ui-bar-d {
+    background-color: #FFD580;
+    background-image: none !important;
+    color: #4CAF50 !important; /* Default text color for JQM-managed headers if visible */
+    text-shadow: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Page Body (ui-body-d) - Overall muted green/beige background */
+.ui-body-d {
+    background-color: #E6ECCF !important; /* Muted green/beige, applied with !important */
+    color: #333333;
+    text-shadow: none;
+    border-color: #DDDDDD;
+}
+
+
+/* Links */
+.ui-body-d .ui-link {
+    color: #FF9800; /* Orange links to match primary button */
+}
+
+/* Primary Buttons (ui-btn-d) - Orange from image */
+/* This will affect any button with data-theme="d" unless specifically overridden */
+.ui-btn-d {
+    background-color: #FF9800 !important; /* Vibrant Orange for main buttons */
+    background-image: linear-gradient(to top, #FF9800, #FFA726) !important; /* Subtle gradient */
+    color: #FFFFFF !important;
+    text-shadow: none !important;
+    border: none !important;
+    border-radius: 8px !important; /* Consistent rounded corners */
+    box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3) !important; /* Orange-tinted shadow */
+    transition: all 0.2s ease;
+}
+
+/* Primary Buttons (hover/focus state) */
+.ui-btn-d:hover,
+.ui-btn-d:focus {
+    background-color: #FFA726 !important; /* Lighter orange on hover */
+    background-image: linear-gradient(to top, #FFA726, #FFB300) !important;
+    color: #FFFFFF !important;
+    text-shadow: none !important;
+    border: none !important;
+    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4) !important;
+    transform: translateY(-2px);
+}
+
+/* Primary Buttons (active state) */
+.ui-btn-d:active {
+    background-color: #F57C00 !important; /* Darker orange when pressed */
+    background-image: linear-gradient(to bottom, #F57C00, #FF9800) !important;
+    color: #FFFFFF !important;
+    text-shadow: none !important;
+    border: none !important;
+    box-shadow: 0 2px 5px rgba(255, 152, 0, 0.2) !important;
+    transform: translateY(0);
+}
+
+/* Form elements (general overrides for clean inputs) */
+.ui-body-d .ui-input-text,
+.ui-body-d .ui-input-search,
+.ui-body-d textarea,
+.ui-body-d .ui-input-text.ui-focus,
+.ui-body-d .ui-input-search.ui-focus,
+.ui-body-d textarea.ui-focus {
+    background-color: #FFFFFF !important; /* Pure white input background */
+    border: 1px solid #E0E0E0 !important; /* Subtle light border */
+    color: #333333 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease;
+    border-radius: 8px !important; /* Consistent rounding for inputs */
+}
+
+/* Input text color */
+.ui-body-d .ui-input-text input,
+.ui-body-d .ui-input-search input,
+.ui-body-d textarea {
+    color: #333333 !important;
+}
+
+/* -------------------------------------------------- */
+/* START: Specific Select Menu Styling Fixes */
+/* -------------------------------------------------- */
+
+/* Target the visible button-like element that jQuery Mobile creates for the select */
+.ui-body-d .ui-select .ui-btn {
+    background-color: #FFFFFF !important; /* Pure white background */
+    border: 1px solid #E0E0E0 !important;
+    color: #333333 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    border-radius: 8px !important; /* Consistent rounding */
+    padding: 12px 14px !important; /* Match input padding */
+    text-align: left !important; /* Align text to the left */
+    font-size: 16px !important; /* Ensure readable font size, adjust as needed */
+    height: auto !important; /* Ensure height adjusts to content */
+    line-height: normal !important; /* Reset line height if it's causing issues */
+    /* Override any JQM default padding that might cause misalignment */
+    box-sizing: border-box !important; /* Important for consistent sizing */
+}
+
+/* Ensure the arrow icon is properly positioned and not causing text overlap */
+.ui-select .ui-btn:after {
+    right: 14px !important; /* Adjust position of the arrow icon */
+    top: 50% !important;
+    margin-top: -9px !important; /* Adjust to vertically center icon */
+    /* Ensure the icon is visible and of appropriate size */
+    background-color: #333 !important; /* Default icon color (dark gray) */
+    width: 18px !important; /* Default icon size */
+    height: 18px !important; /* Default icon size */
+}
+
+
+/* Icon colors for general JQM icons (if any) */
+.ui-icon-alt.ui-btn-icon-notext:after {
+    background-color: #FF9800 !important; /* Orange for general icons */
+    opacity: 1 !important;
+}
+
+/* Specific styling for secondary buttons to override ui-btn-d */
+.ui-btn.secondary-signup-button {
+    background-color: #FFFDE7 !important; /* Light yellowish background */
+    background-image: none !important;
+    border: 1px solid #E0E0E0 !important; /* Subtle border */
+    color: #333333 !important; /* Dark text */
+    box-shadow: none !important;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.ui-btn.secondary-signup-button:hover,
+.ui-btn.secondary-signup-button:focus {
+    background-color: #FF9800 !important; /* Orange background on hover */
+    background-image: linear-gradient(to top, #FF9800, #FFA726) !important; /* Apply gradient on hover */
+    border-color: #FF9800 !important; /* Orange border on hover */
+    color: #FFFFFF !important; /* White text on hover */
+    box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3) !important; /* Subtle shadow on hover */
+    transform: translateY(-2px);
+}
+
+.ui-btn.secondary-signup-button:active {
+    background-color: #F57C00 !important; /* Darker orange when pressed */
+    background-image: linear-gradient(to bottom, #F57C00, #FF9800) !important;
+    border-color: #F57C00 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 2px 5px rgba(255, 152, 0, 0.2) !important;
+    transform: translateY(0);
+}
+
+/* Back button icon for sub pages */
+.ui-btn.back-button-icon .ui-icon-carat-l:after {
+    background-color: #4CAF50 !important; /* Green color for the back arrow icon */
+}

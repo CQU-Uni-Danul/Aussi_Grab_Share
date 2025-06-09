@@ -1,0 +1,402 @@
+/* General background for login */
+.login-page-custom-bg {
+    background-color: #E6ECCF; /* Muted green/beige from image */
+    background-image: none; /* No background image */
+    background-size: cover;
+    height: 100vh;
+}
+
+/* Top header with leaf icon and name */
+.login-top-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    font-size: 22px;
+    font-weight: bold;
+    color: #4CAF50; /* Green from image */
+}
+
+.header-leaf-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.header-app-name {
+    font-family: 'Arial', sans-serif; /* Or your preferred font from the image */
+}
+
+/* Login content area - center card */
+.login-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 160px); /* Adjust based on header/footer height */
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+/* NEW: Ensure ui-content wrap fills available space for all pages */
+/* This will make sure the .ui-body-d background is visible */
+.ui-content.wrap {
+    min-height: calc(100vh - 120px); /* Adjust based on your header (approx 50px) and footer (approx 70px) heights */
+    display: flex; /* Use flexbox to center content if needed */
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: flex-start; /* Align content to the top, or 'center' if you want forms vertically centered */
+    padding: 20px; /* Add padding to ensure space around the form card */
+    box-sizing: border-box;
+    background-color: #E6ECCF;/* Muted green/beige from image */
+	
+}
+
+
+.login-form-card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 30px 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Make it responsive */
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-as-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    margin-bottom: 25px; /* Added some space below */
+}
+
+.login-as-button {
+	flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px; /* Space between buttons */
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: bold;
+    text-decoration: none; /* Remove underline for links */
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.login-as-button.selected {
+	background-color: #5cb85c; /* Example highlight color (green) */
+    border-color: #4cae4c;
+    color: #fff;
+}
+
+/* NEW: Card styling for User and Business signup forms */
+.signup-form-card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 30px 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Make it responsive */
+    max-width: 500px; /* Adjusted max-width for signup forms, can be changed */
+    margin: 20px auto; /* Center the form horizontally */
+    box-sizing: border-box; /* Ensure padding is included */
+
+}
+
+/* Banner inside card */
+.banner-inside-card {
+    width: 300px; /* Explicit width as in the image */
+    height: 100px; /* Explicit height as in the image */
+    margin: 0 auto 20px auto; /* Center and add bottom margin */
+    background-color: #e0e0e0; /* Placeholder background */
+    display: block; /* Ensure it behaves as a block element */
+    text-align: center;
+    line-height: 100px; /* Vertically center placeholder text */
+    color: #666;
+    font-size: 18px;
+    border-radius: 8px; /* Slightly rounded corners for the banner */
+}
+
+/* Form headings */
+.welcome-back-title {
+    font-size: 24px;
+    color: #4CAF50; /* Green from image */
+    margin-bottom: 5px;
+}
+
+.login-tagline {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* REMOVED background-color from here as it's handled by theme.css now */
+input[type="email"],
+input[type="password"],
+input[type="text"],
+select { /* This still applies to the native select, which is hidden by JQM */
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #E0E0E0; /* Subtle light border */
+    border-radius: 8px; /* Consistent rounded corners */
+    box-sizing: border-box;
+    color: #333333;
+}
+
+/* --- START: Crucial additions for JQM enhanced select width --- */
+/* Ensure jQuery Mobile's enhanced select container takes full width */
+.ui-select {
+    width: 100%; /* Make the overall select container full width */
+    margin-bottom: 15px; /* Add some space below the select, similar to other inputs */
+}
+
+/* Ensure the button inside the select container is full width */
+/* This rule might be redundant if .ui-select is 100% and .ui-btn is child, but good for explicit control */
+.ui-select .ui-btn {
+    width: auto;
+    /* Padding and other styles are handled in myTheme.css */
+}
+
+/* Ensure the text wrapper inside the select button behaves correctly */
+.ui-select .ui-btn-text {
+    width: 100%; /* Ensure the text wrapper respects its parent's width */
+    display: block; /* Important for text-overflow to work */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* --- END: Crucial additions for JQM enhanced select width --- */
+
+
+/* Placeholder styling */
+input::placeholder {
+    color: #999; /* Lighter grey for placeholder text */
+    opacity: 1; /* Ensure full visibility in Firefox */
+}
+
+/* Label styling */
+.form-label {
+    text-align: left;
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px; /* Space between label and input */
+    margin-top: 15px; /* Space above the label */
+    color: #333;
+}
+
+/* NEW: Styles for form section titles */
+.form-section-title {
+    font-size: 18px;
+    color: #4CAF50; /* Green, similar to app name */
+    margin-top: 30px; /* Space above the section title */
+    margin-bottom: 15px; /* Space below the section title */
+    text-align: left; /* Align with labels */
+    border-bottom: 1px solid #E0E0E0; /* Subtle separator */
+    padding-bottom: 5px;
+}
+
+/* Adjust margin-top for the very first section title to avoid too much space at the top */
+.ui-content form .form-section-title:first-of-type {
+    margin-top: 0;
+}
+
+
+/* Login primary button */
+.login-primary-button {
+    background-color: #FF9800 !important; /* Orange from image */
+    border-radius: 10px !important;
+    font-weight: bold;
+    padding: 12px 20px !important; /* Adjust padding */
+    margin-top: 25px !important; /* Space above button */
+    color: #FFFFFF !important;
+    text-shadow: none !important;
+    border: none !important;
+    box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3) !important;
+    display: flex; /* For centering icon and text */
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Space between icon and text */
+    /* Add transition for smooth hover effects */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Login button hover state (already in theme.css but good to be explicit here) */
+.login-primary-button:hover,
+.login-primary-button:focus {
+    background-color: #FFA726 !important; /* Lighter orange on hover */
+    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4) !important;
+    transform: translateY(-2px);
+}
+
+/* Secondary signup buttons (general styles) */
+.secondary-signup-button {
+    /* ... keep all existing styles for padding, font-size, background-color, border, etc. ... */
+    display: flex; /* Makes icon and text align */
+    align-items: center; /* Vertically centers icon and text */
+    justify-content: center; /* Centers content horizontally within the button */
+    gap: 8px; /* Space between icon and text */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Secondary signup buttons hover state (applies to the button itself) */
+.secondary-signup-button:hover,
+.secondary-signup-button:focus {
+    background-color: #FF9800 !important; /* Orange background on hover */
+    border-color: #FF9800 !important; /* Orange border on hover */
+    color: #FFFFFF !important; /* White text on hover */
+}
+
+/* Styles for the inline SVG icon (user-icon-svg) */
+.user-icon{
+    width: 20px; /* Adjust size as needed for your SVG icon */
+    height: 20px; /* Adjust size as needed */
+    vertical-align: middle; /* Aligns the SVG with the text baseline */
+    fill: #333333; /* Default dark color for the icon. This will override any 'fill' attribute in the SVG if 'currentColor' isn't used there. */
+    transition: fill 0.3s ease; /* Smooth transition for color change */
+    flex-shrink: 0; /* Prevent icon from shrinking on smaller screens */
+}
+.business-icon{
+    width: 20px; /* Adjust size as needed for your SVG icon */
+    height: 20px; /* Adjust size as needed */
+    vertical-align: middle; /* Aligns the SVG with the text baseline */
+    fill: #333333; /* Default dark color for the icon. This will override any 'fill' attribute in the SVG if 'currentColor' isn't used there. */
+    transition: fill 0.3s ease; /* Smooth transition for color change */
+    flex-shrink: 0; /* Prevent icon from shrinking on smaller screens */
+}
+
+/* Hover state for the inline SVG icon */
+.secondary-signup-button:hover .user-icon {
+    fill: #FFFFFF; /* Icon turns white on hover */
+}
+
+
+/* Hover state for the Font Awesome icon (business signup) */
+.secondary-signup-button:hover .business-icon {
+    color: #FFFFFF; /* Font Awesome icon turns white on hover */
+}
+
+/* Text below login */
+.no-account-text {
+    margin-top: 25px; /* Adjust spacing */
+    margin-bottom: 10px; /* Adjust spacing */
+    color: #555;
+    font-size: 14px;
+}
+
+/* Footer styling */
+.footer {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    background-color: #FFD580;
+    border-top: none;
+    color: #888;
+}
+
+.back-button-icon {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.back-button-icon .ui-icon {
+    background-color: #4CAF50 !important; /* Green for the back arrow icon */
+}
+
+/* Force navbar background */
+.ui-page .ui-navbar {
+  background-color: #ffe1cc !important;
+  background:#ffe1cc !important;
+  border-radius: 10px;
+  padding: 0.2em;
+  margin: 0.5em;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Nav button styling */
+.ui-navbar ul li a {
+  background-color: transparent !important;
+  color: #FF5722 !important;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Active tab highlight */
+.ui-navbar ul li a.ui-btn-active {
+  background-color: #FF5722 !important;
+  color: white !important;
+}
+
+/* Hover effect (optional) */
+.ui-navbar ul li a:hover {
+  background-color: #ffd6b3 !important;
+}
+
+/*Layout for food items*/
+.food-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.food-image-container {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.food-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.food-details {
+  flex: 1;
+}
+
+.food-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.poster-type {
+  font-size: 0.8em;
+  padding: 2px 6px;
+  margin-left: 6px;
+  border-radius: 6px;
+  background-color: #eee;
+}
+
+.business-tag {
+  background-color: #f39c12;
+  color: #000;
+}
+
+.user-tag {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.food-description {
+  font-size: 0.9em;
+  margin-bottom: 6px;
+}
+
+.food-meta {
+  font-size: 0.8em;
+  color: #555;
+}
+
+
