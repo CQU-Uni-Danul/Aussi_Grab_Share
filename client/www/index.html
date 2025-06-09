@@ -2,13 +2,6 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="
-  default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval';
-  style-src 'self' 'unsafe-inline';
-  connect-src 'self' http://localhost:5000;
-  img-src 'self' data: http://localhost:5000 https://aussiegrubshare.com;
-">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
@@ -200,6 +193,7 @@
 		    <li><a href="#" class="ui-btn-active" data-tab="PostItems">Post Items</a></li>
 			<li><a href="#" data-tab="AllFoodIteam">All Posted Food Items</a></li>
 			<li><a href="#" data-tab="UserPostedFood">User Posts</a></li>
+			<li><a href="#" data-tab="ClaimedFood">Claimed By You</a></li>
 		</ul>
 	  </div>
 	
@@ -264,6 +258,20 @@
 	  </div>
 	  
 	  <!-- Showing user posted food iteam Section Ends -->
+	  
+	  <!-- Showing user Claimed food iteam Section -->
+	  
+	  <div role="main" class="ui-content wrap" id="ClaimedFood">
+		<div id="claim-items-container">
+		  <div class="empty-state" id="claim-empty-state">
+			<div class="empty-icon">👤</div>
+			<h3>No Claims Yet</h3>
+			<p>Your claimed food items will appear here.</p>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <!-- Showing user Claimed food iteam Section Ends -->
 
 	  <div data-role="footer" data-position="fixed" class="footer">
 		<h1>&copy; Aussie Grub Share 2025</h1>

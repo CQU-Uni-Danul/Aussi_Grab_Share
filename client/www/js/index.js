@@ -1,7 +1,6 @@
 //server base domain url 
 const domainUrl = 'http://localhost:5000';  // if local test, pls use this 
-
-//  const domainUrl = "https://giftdeliveryapp-1.onrender.com"; 
+//const domainUrl = 'https://aussi-grab-share.onrender.com'; //render url
 const emailRegex = /^[^\s@]+@[^\s@]+(\.[^\s@]{2,})+$/;
 const phoneRegex = /^04\d{8}$/; //phoneNumber format
 const postcodeRegex = /^\d{4}$/; // postcode format
@@ -342,7 +341,7 @@ $(document).on("pagecreate", "#businessSignupPage", function () {
 
 $(document).on("pageshow", "#FoodItemsPage", function() {
 	
-	$("#AllFoodIteam, #UserPostedFood").hide();
+	$("#AllFoodIteam, #UserPostedFood, #ClaimedFood").hide();
 	const role = localStorage.getItem("role"); // 'user' or 'business'
 	const curUser = JSON.parse(localStorage.getItem("user")); // Convert back to object
 	var flag = false;
@@ -362,12 +361,17 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 			flag = (targetTab === "UserPostedFood");
 
 			// Hide all tab contents
-			$("#PostItems, #AllFoodIteam, #UserPostedFood").hide();
+			$("#PostItems, #AllFoodIteam, #UserPostedFood, #ClaimedFood").hide();
 
 			// Show the selected tab
 			$("#" + targetTab).show();
-
-			loadAllFoodItems(flag);
+			
+			if(targetTab === "ClaimedFood"){
+				$("#ClaimedFood").show();
+			}
+			else{
+				loadAllFoodItems(flag);	
+			}
 		});
 
 		$("#food-navbar").data("bound", true); // Prevent double binding
@@ -380,6 +384,7 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 
 			// Update the empty state content
 			$("#user-empty-state .empty-icon").text("🏢");
+			$("#claim-empty-state .empty-icon").text("🏢");
 			$("#user-empty-state h3").text("No Business Posts Yet");
 			$("#user-empty-state p").text("Local businesses will appear here when they share food items.");
 		}
@@ -432,7 +437,21 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 
 			const tagClass = item.postedBy.role === "business" ? "business-tag" : "user-tag";
 			const tagLabel = item.postedBy.role === "business" ? "Business" : "User";
+			
+			const isPoster = item.postedBy.id === curUser.id;
+			const isClaimed = item.claimed;
 
+			let claimButton = "";
+			if (!isPoster && !isClaimed && !flag) {
+			  claimButton = `<a href="#" class="ui-btn ui-mini ui-btn-inline claim-button" data-id="${item._id}">Claim</a>`;
+			}
+			else if(!isPoster && !flag){
+				claimButton = `<h3 backgroundColor = 'green'>Food Item Already Claimed`
+			}else if(flag && isClaimed){
+				claimButton = `<a href="#" class="ui-btn ui-mini ui-btn-inline claim-button" data-id="${item._id}">Collect</a>`;
+			
+			}
+			
 			const foodItemHTML = `
 			  <div class="food-item ${item.postedBy.role}">
 				<div class="food-image-container">
@@ -448,6 +467,7 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 					<span>Posted: ${posted}</span><br>
 					<span>Expires: ${expires}</span>
 				  </div>
+				  ${claimButton}
 				</div>
 			  </div>
 			`;
@@ -519,5 +539,29 @@ $(document).on("pageshow", "#FoodItemsPage", function() {
 		$.mobile.changePage("#loginPage", { transition: "slide" });
 		window.location.reload(true);
     });
+	
+	$(document).on("click", ".claim-button", function (e) {
+	  e.preventDefault();
+	  const foodId = $(this).data("id");
+
+	  fetch(`${domainUrl}/api/claims/${foodId}`, {
+		method: "PATCH",
+		headers: {
+		  "Authorization": `Bearer ${localStorage.getItem("token")}`
+		}
+	  })
+	  .then(res => {
+		if (!res.ok) throw new Error("Failed to claim item");
+		return res.json();
+	  })
+	  .then(() => {
+		Swal.fire("Success", "You claimed this item!", "success");
+		loadAllFoodItems(false); // Refresh list
+	  })
+	  .catch(err => {
+		console.error("Claim error:", err);
+		Swal.fire("Error", "Could not claim item", "error");
+	  });
+	});
 	
 });

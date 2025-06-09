@@ -7,15 +7,22 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 // Create a claim on a food item
-router.post('/', auth, async (req, res) => {
+router.patch('/:id', auth, async (req, res) => {
   try {
-    const { foodItemId } = req.body;
-
-    const foodItem = await FoodItem.findById(foodItemId);
+	foodItemId = req.params.id;  
+    const foodItem = await FoodItem.findById(req.params.id);
     if (!foodItem) return res.status(404).json({ msg: 'Food item not found' });
 
     if (foodItem.claimed) return res.status(400).json({ msg: 'Food item already claimed' });
+	
+	foodItem.claimed = true;
+    foodItem.claimedBy = {
+      id: req.user.id,
+      role: req.user.role
+    };
 
+    await foodItem.save();
+	
     const newClaim = new Claim({
       claimerId: req.user.id,
       claimerType: req.user.role,
@@ -33,7 +40,7 @@ router.post('/', auth, async (req, res) => {
 });
 
 // Get claims for current user/business
-router.get('/', auth, async (req, res) => {
+router.get('/claimed-by-id', auth, async (req, res) => {
   try {
     const claims = await Claim.find({ claimerId: req.user.id, claimerType: req.user.role })
       .populate('foodItemId');
