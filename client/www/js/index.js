@@ -169,7 +169,7 @@ $(document).on("pagecreate", "#userSignupPage", function () {
             return;
         }
 
-        if (!userData.postcode || !userData.postcodeRegex.test(userData.postcode)) {
+        if (!userData.postcode || !postcodeRegex.test(userData.postcode)) {
             Swal.fire('Validation Error', 'Postcode must be numeric and up to 4 digits.', 'warning').then(() => {
                 $("#postcode").focus();
             });
